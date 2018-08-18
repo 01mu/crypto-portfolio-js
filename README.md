@@ -1,5 +1,5 @@
 # crypto-portfolio-js
 Small cryptocurrency portfolio.
 
-https://smallfol.io
-https://smallfol.io/portfolio.html
+http://www.smallfol.io
+http://www.smallfol.io/portfolio.html
