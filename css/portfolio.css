@@ -1,0 +1,38 @@
+.pflex
+{
+    padding-top: 2.5px;
+    padding-bottom: 2.5px;
+    display: flex;
+}
+
+.pwrapper5
+{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 5%;
+}
+
+.pwrapper10
+{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 10%;
+}
+
+.pwrapper15
+{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 15%;
+}
+
+.pwrapper20
+{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 20%;
+}

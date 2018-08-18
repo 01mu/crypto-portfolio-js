@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html lang="en" ng-app=app>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="css/portfolio.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    </head>
+    <body>
+    <div ng-controller="main">
+        {{totalCur}} | {{totalBTC}}
+        <br>
+        <br>
+        <span>
+            <div class="pflex" ng-repeat="p in set">
+            <div class="pwrapper20"><img ng-src="{{p.icon}}" height="12" width="12">&nbsp;
+            {{p.name}}</div>
+            <div class="pwrapper15">{{p.percentage}}</div>
+            <div class="pwrapper20">{{p.userPrice}}</div>
+            <div class="pwrapper10">{{p.count}}</div>
+            <div class="pwrapper20">{{p.coinPrice}}</div>
+            <div class="pwrapper15"><button ng-click="$parent.remove(p)">Remove</button></div>
+            </div>
+        </span>
+        </table>
+        <br>
+        <input type="text" ng-model="symbol" placeholder="Symbol">
+        <input type="text" ng-model="amount" placeholder="Amount">
+        <button ng-disabled="!(symbol.length && amount.length)" ng-click="add()">Add</button>
+    </div>
+    <script src="scripts/portfolio.js"></script>
+    </body>
+</html>
