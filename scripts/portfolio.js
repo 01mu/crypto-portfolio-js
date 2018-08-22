@@ -1,10 +1,14 @@
+/*
+ * portfolio.js
+ * github.com/01mu
+ */
+
 var baseURL = 'https://smallfolio.bitnamiapp.com/10/';
 var app = angular.module('app', []);
 
 app.controller('main', ['$scope', '$http', '$rootScope',
     function($scope, $http, $rootScope) {
 
-    $scope.total = 0;
     $scope.set = [];
 
     update($scope);
@@ -45,24 +49,31 @@ function removeCoin($scope, index) {
     var removeStrCoin;
     var removeStrCount;
 
-    removeStrCoin = 'portfolioCoin0' + (portfolioSize - 1);
-    removeStrCount = 'portfolioCount0' + (portfolioSize - 1);
+    if(portfolioSize == 1) {
+        localStorage.removeItem('portfolioCoin00');
+        localStorage.removeItem('portfolioCount00');
 
-    for(var i = index; i < portfolioSize - 1; i++) {
-        var tempCoin = localStorage.getItem('portfolioCoin0' + (i + 1));
-        var tempCount = localStorage.getItem('portfolioCount0' + (i + 1));
+        portfolioSizeSub();
+    } else if(portfolioSize > 1) {
+        for(var i = index; i < portfolioSize - 1; i++) {
+            removeStrCoin = 'portfolioCoin0' + (portfolioSize - 1);
+            removeStrCount = 'portfolioCount0' + (portfolioSize - 1);
 
-        var tci = 'portfolioCoin0' + i;
-        var tni = 'portfolioCount0' + i;
+            var tempCoin = localStorage.getItem('portfolioCoin0' + (i + 1));
+            var tempCount = localStorage.getItem('portfolioCount0' + (i + 1));
 
-        localStorage.setItem(tci, tempCoin);
-        localStorage.setItem(tni, tempCount);
+            var tci = 'portfolioCoin0' + i;
+            var tni = 'portfolioCount0' + i;
+
+            localStorage.setItem(tci, tempCoin);
+            localStorage.setItem(tni, tempCount);
+        }
+
+        localStorage.removeItem(removeStrCoin);
+        localStorage.removeItem(removeStrCount);
+
+        portfolioSizeSub();
     }
-
-    localStorage.removeItem(removeStrCoin);
-    localStorage.removeItem(removeStrCount);
-
-    portfolioSizeSub();
 
     update($scope);
 }
@@ -142,6 +153,9 @@ function update($scope) {
     var portfolioURL = getPortfolioInfo();
     var counts = getPortfolioCounts();
 
+    $scope.totalCur = formatDollar(0);
+    $scope.totalBTC = '0 BTC';
+
     $.getJSON(portfolioURL, function(json) {
         if(json[0].Response != 'Empty') {
             var coins = [];
@@ -183,6 +197,12 @@ function update($scope) {
             $scope.set = coins;
             $scope.totalCur = formatDollar(total);
             $scope.totalBTC = totalBTC.toFixed(3) + ' BTC';
+
+            $scope.$apply();
+        } else {
+            $scope.set = [];
+            $scope.totalCur = formatDollar(0);
+            $scope.totalBTC = '0 BTC';
 
             $scope.$apply();
         }
